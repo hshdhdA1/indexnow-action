@@ -1,22 +1,21 @@
 name: "IndexNow"
 on:
   push:
-    branches:  # 修正缩进位置
-      - master  # 与branches对齐
+    branches:
+      - main
   schedule:
-    - cron: '0 0,12 * * *'  # 去除多余空格
-
+    - cron: '0 0,12 * * *'
 jobs:
   check-and-submit:
     runs-on: ubuntu-latest
     steps:
       - name: submit-to-bing
-        uses: bojieyang/indexnow-action@v1
+        uses: bojieyang/indexnow-action@v2
         with:
           sitemap-location: "https://tdacg.com/sitemap.xml"
           endpoint: "www.bing.com"
-          since: 1
+          since: 3
           since-unit: "day"
-          limit: 100
+          limit: 10
           key: ${{ secrets.INDEXNOW_KEY }}
           key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
