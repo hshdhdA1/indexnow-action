@@ -14,8 +14,6 @@ jobs:
         with:
           sitemap-location: "https://tdacg.com/sitemap.xml"
           endpoint: "www.bing.com"
-          since: 0
-          since-unit: "day"
           limit: 50
           key: ${{ secrets.INDEXNOW_KEY }}
           key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
