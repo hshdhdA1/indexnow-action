@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: submit-to-bing
-        uses: bojieyang/indexnow-action@v1
+        uses: bojieyang/indexnow-action@v2
         with:
           sitemap-location: "https://tdacg.com/sitemap.xml"  # change it
           endpoint: "www.bing.com"
