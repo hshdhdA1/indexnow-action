@@ -12,6 +12,7 @@ import XMLSitemapHandler from './xml-sitemap-handler';
 import SitemapIndexHandler from './sitemapindex-handler';
 import RSSHandler from './rss-handler';
 import AtomHandler from './atom-handler';
+import HtmlFilter from './html-filter';
 export default class SitemapProcessor {
   handlers: SitemapHandler[];
   filterChain: FilterChain;
@@ -38,7 +39,27 @@ export default class SitemapProcessor {
       logWithStrategy(err.message, this.options?.failureStrategy ?? 'error');
     }
   }
+  
+  initialize() {
+    this.options = parseInputs();
+    this.registerHandler(new XMLSitemapHandler(this));
+    this.registerHandler(new SitemapIndexHandler(this));
+    this.registerHandler(new RSSHandler(this));
+    this.registerHandler(new AtomHandler(this));
 
+    // === 新增 HTML 过滤器 ===
+    this.filterChain.addFilter(new HtmlFilter()); // 优先过滤非 HTML 页面
+
+    this.filterChain.addFilter(
+      new SinceFilter(
+        this.options.since,
+        this.options.sinceUnit,
+        this.options.lastmodRequired
+      )
+    );
+    this.filterChain.addFilter(new LimitFilter(this.options.limit));
+  }
+  
   initialize() {
     this.options = parseInputs();
 
