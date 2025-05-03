@@ -2,17 +2,17 @@ name: "IndexNow"
 on:
   push:
     branches:
-      - master       # 正确缩进：相对 branches: 缩进 2 空格
+      - main
   schedule:
-    - cron: '0 0,12 * * *'  # 注意这里要用半角单引号
+    - cron: '0 0,12 * * *'
 jobs:
   check-and-submit:
     runs-on: ubuntu-latest
     steps:
       - name: submit-to-bing
-        uses: bojieyang/indexnow-action@v1
+        uses: bojieyang/indexnow-action@v2
         with:
-          sitemap-location: "https://www.tdacg.com/sitemap.xml"  # change it
+          sitemap-location: "https://tdacg.com/sitemap.xml"
           endpoint: "www.bing.com"
           limit: 150
           key: ${{ secrets.INDEXNOW_KEY }}
