@@ -2,12 +2,9 @@ name: "IndexNow"
 on:
   push:
     branches:
-    	# when git push to the master branch
-      - master
+      - master       # 正确缩进：相对 branches: 缩进 2 空格
   schedule:
-    # scheduled in UTC.
-    - cron:  '0 0,12 * * *'
-
+    - cron: '0 0,12 * * *'  # 注意这里要用半角单引号
 jobs:
   check-and-submit:
     runs-on: ubuntu-latest
